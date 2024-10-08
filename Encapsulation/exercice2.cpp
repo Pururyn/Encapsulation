@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-class Point {
+/*class Point {
 private:
 	int x;
 	int y;
@@ -36,4 +36,4 @@ int main() {
 	point1.compare(point2);
 
 	return 0;
-}
+}*/
