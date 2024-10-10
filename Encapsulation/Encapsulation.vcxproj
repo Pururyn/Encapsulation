@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\jhuynh\Documents\SDL2-2.30.8\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\jhuynh\Documents\SDL2-2.30.8\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\jhuynh\Documents\SDL2-2.30.8\include;D:\Documents\SDL2-2.30.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\jhuynh\Documents\SDL2-2.30.8\lib\x64;D:\Documents\SDL2-2.30.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
