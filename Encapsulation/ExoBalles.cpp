@@ -9,13 +9,15 @@ private:
     int x;      
     int y;      
     int rayon;  
-    int vitesse;
+    int vitessex;
+    int vitessey;
 public:
     Balles (int x1, int y1, int r) {
         x = x1;      
         y = y1;      
         rayon = r;   
-        vitesse = 4;
+        vitessex = 4;
+        vitessey = 4;
     }
 
     // Fonction pour dessiner un cercle
@@ -32,14 +34,14 @@ public:
         }
     }
     void moveCircle(SDL_Renderer* renderer) {
-        x += vitesse;
-        y += vitesse;
+        x += vitessex;
+        y += vitessey;
 
-        if (x + rayon > 960) {
-            x -= vitesse;
+        if ((x - rayon < 0)||(x + rayon > 960)) {
+            vitessex = -vitessex;
         }
-        if (y + rayon > 540) {
-            y -= vitesse;
+        if ((y - rayon < 0) ||(y + rayon > 540)) {
+            vitessey = -vitessey;
         }
     }
 };
@@ -77,6 +79,7 @@ int main(int argc, char* args[]) {
     }
 
     Balles b (100, 250, 25);
+    Balles c (850, 50, 25);
 
     bool quit = false;
     SDL_Event e;
@@ -92,9 +95,13 @@ int main(int argc, char* args[]) {
         SDL_RenderClear(renderer);
 
         // Dessiner le cercle et faire bouger
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Couleur du cercle
+        SDL_SetRenderDrawColor(renderer, 143, 219, 177, 255); // Couleur du cercle
         b.drawCircle(renderer);
         b.moveCircle(renderer);
+        //Cercle 2
+        SDL_SetRenderDrawColor(renderer, 143, 192, 219, 255);
+        c.drawCircle(renderer);
+        c.moveCircle(renderer);
 
         // Afficher à l'écran
         SDL_RenderPresent(renderer);
