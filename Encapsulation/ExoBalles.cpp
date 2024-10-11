@@ -107,7 +107,7 @@ int main(int argc, char* args[]) {
         SDL_RenderPresent(renderer);
     }
 
-    // Détruit tout avant de quitte
+    // Détruit tout avant de quitter
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
