@@ -44,6 +44,22 @@ public:
             vitessey = -vitessey;
         }
     }
+    void collisionBalls(Balles& b2) {
+        float dx = x - b2.x;
+        float dy = y - b2.y;
+        float distance = sqrt(dx * dx + dy * dy);
+
+        float distancemin = rayon + b2.rayon;
+
+        if (distance <= distancemin) {
+            if (abs(dx) > abs(dy)) {
+                vitessex = -vitessex;
+            }
+            else {
+                vitessey = -vitessey;
+            }
+        }
+    }
 };
 
 int main(int argc, char* args[]) {
@@ -80,6 +96,7 @@ int main(int argc, char* args[]) {
 
     Balles b (100, 250, 25);
     Balles c (850, 50, 25);
+    
 
     bool quit = false;
     SDL_Event e;
@@ -102,6 +119,7 @@ int main(int argc, char* args[]) {
         SDL_SetRenderDrawColor(renderer, 143, 192, 219, 255);
         c.drawCircle(renderer);
         c.moveCircle(renderer);
+        b.collisionBalls(c);
 
         // Afficher à l'écran
         SDL_RenderPresent(renderer);
