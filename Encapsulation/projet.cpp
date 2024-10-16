@@ -18,13 +18,19 @@ private:
     int rayon;
     int vitessex;
     int vitessey;
+    Uint8 red;
+    Uint8 blue;
+    Uint8 green;
 public:
-    Balles(int x1, int y1, int r) {
+    Balles(int x1, int y1, int r, Uint8 red, Uint8 green, Uint8 blue){
         x = x1;
         y = y1;
         rayon = r;
-        vitessex = 4;
-        vitessey = 4;
+        vitessex = rand()%20;
+        vitessey = rand()%20;
+        this->red = red;  // Stocker les couleurs dans la balle
+        this->green = green;
+        this->blue = blue;
     }
 
     // Fonction pour dessiner un cercle
@@ -35,6 +41,7 @@ public:
                 int dx = rayon - w; // Distance horizontale par rapport au centre
                 int dy = rayon - h; // Distance verticale par rapport au centre
                 if ((dx * dx + dy * dy) <= (rayon * rayon)) {
+                    SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
                     SDL_RenderDrawPoint(renderer, x + dx, y + dy);
                 }
             }
@@ -44,30 +51,13 @@ public:
         x += vitessex;
         y += vitessey;
 
-        if ((x - rayon < 0) || (x + rayon > 960)) {
-            vitessex = -vitessex;
+        if ((x - rayon <= 0) || (x + rayon >= 960)) {
+            vitessex = -vitessex; // horizontal
         }
-        if ((y - rayon < 0) || (y + rayon > 540)) {
-            vitessey = -vitessey;
-        }
-    }
-    void collisionBalls(Balles& b2) {
-        float dx = x - b2.x;
-        float dy = y - b2.y;
-        float distance = sqrt(dx * dx + dy * dy);
-
-        float distancemin = rayon + b2.rayon;
-
-        if (distance <= distancemin) {
-            if (abs(dx) > abs(dy)) {
-                vitessex = -vitessex;
-            }
-            else {
-                vitessey = -vitessey;
-            }
+        if ((y - rayon <= 0) || (y + rayon >= 540)) {
+            vitessey = -vitessey; // vertical
         }
     }
-
 };
 
 int main(int argc, char* args[]) {
@@ -105,6 +95,9 @@ int main(int argc, char* args[]) {
 
     list<Balles> ballesList;
     Uint32 lastBallAddedTime = SDL_GetTicks();  // Timer to track time since last ball was added
+    int red = rand() % 255;
+    int green = rand() % 255;
+    int blue = rand() % 255;
 
     bool quit = false;
     SDL_Event e;
@@ -121,17 +114,24 @@ int main(int argc, char* args[]) {
         SDL_SetRenderDrawColor(renderer, 63, 63, 105, 255);
         SDL_RenderClear(renderer);
 
+        int rayon = rand() % 30;
+
         // Ajouter une nouvelle balle toutes les 2 secondes (2000 ms)
         if (SDL_GetTicks() - lastBallAddedTime > 2000) {
             if (ballesList.size() < 100) {
-                ballesList.push_back(Balles(rand() % 950, rand() % 530, 25));
+                Uint8 red = rand() % 255;
+                Uint8 green = rand() % 255;
+                Uint8 blue = rand() % 255;
+
+                ballesList.push_back(Balles(rayon + (float)rand() / ((float)RAND_MAX / (940 - rayon)),
+                    rayon + (float)rand() / ((float)RAND_MAX / (520 - rayon)), rayon, red, green, blue));
             }
             lastBallAddedTime = SDL_GetTicks();
         }
 
         // Dessiner et déplacer chaque balle
         for (auto it = ballesList.begin(); it != ballesList.end(); ++it) {
-            SDL_SetRenderDrawColor(renderer, 143, 219, 177, 255);
+            //SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
             it->drawCircle(renderer);
             it->moveCircle(renderer);
         }
