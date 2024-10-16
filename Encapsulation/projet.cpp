@@ -22,12 +22,12 @@ private:
     Uint8 blue;
     Uint8 green;
 public:
-    Balles(int x1, int y1, int r, Uint8 red, Uint8 green, Uint8 blue){
+    Balles(int x1, int y1, int r, Uint8 red, Uint8 green, Uint8 blue) {
         x = x1;
         y = y1;
         rayon = r;
-        vitessex = rand()%20;
-        vitessey = rand()%20;
+        vitessex = rand() % 10;
+        vitessey = rand() % 10;
         this->red = red;  // Stocker les couleurs dans la balle
         this->green = green;
         this->blue = blue;
@@ -83,7 +83,7 @@ int main(int argc, char* args[]) {
     }
 
     // Obtenir le renderer de la fenêtre
-    renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Message en cas d'erreur d'obtention
     if (!renderer) {
@@ -159,9 +159,8 @@ int main(int argc, char* args[]) {
             frameCount = 0;  // Réinitialiser le compteur de frames
             fpsTimer += 1000; // Réinitialiser le timer
         }
-        
-    }
 
+    }
 
     // Détruit tout avant de quitter
     SDL_DestroyWindow(window);
