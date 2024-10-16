@@ -51,6 +51,9 @@ public:
         x += vitessex;
         y += vitessey;
 
+        if (vitessex == 0) vitessex = 1;
+        if (vitessey == 0) vitessey = 1;
+
         if ((x - rayon <= 0) || (x + rayon >= 960)) {
             vitessex = -vitessex; // horizontal
         }
@@ -111,13 +114,13 @@ int main(int argc, char* args[]) {
         int starttick = SDL_GetTicks();
 
         // Nettoyage de l'écran
-        SDL_SetRenderDrawColor(renderer, 63, 63, 105, 255);
+        SDL_SetRenderDrawColor(renderer, 1, 33, 115, 255);
         SDL_RenderClear(renderer);
 
         int rayon = rand() % 30;
 
-        // Ajouter une nouvelle balle toutes les 2 secondes (2000 ms)
-        if (SDL_GetTicks() - lastBallAddedTime > 2000) {
+        // Ajouter une nouvelle balle toutes les 1 secondes (1000 ms)
+        if (SDL_GetTicks() - lastBallAddedTime > 1000) {
             if (ballesList.size() < 100) {
                 Uint8 red = rand() % 255;
                 Uint8 green = rand() % 255;
