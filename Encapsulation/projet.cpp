@@ -53,7 +53,8 @@ public:
 
         if (vitessex == 0) vitessex = 1;
         if (vitessey == 0) vitessey = 1;
-
+        
+        //Collision contre les bords
         if ((x - rayon <= 0) || (x + rayon >= 960)) {
             vitessex = -vitessex; // horizontal
         }
@@ -74,18 +75,18 @@ int main(int argc, char* args[]) {
         return -1;
     }
 
-    // Création de la fenêtre
+    // CrÃ©ation de la fenÃªtre
     window = SDL_CreateWindow("Rebond de balles", SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED, 960, 540, SDL_WINDOW_SHOWN);
 
-    // Message en cas d'erreur de création
+    // Message en cas d'erreur de crÃ©ation
     if (!window) {
         cout << "Error creating window: " << SDL_GetError() << endl;
         SDL_Quit();
         return -1;
     }
 
-    // Obtenir le renderer de la fenêtre
+    // Obtenir le renderer de la fenÃªtre
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Message en cas d'erreur d'obtention
@@ -113,7 +114,7 @@ int main(int argc, char* args[]) {
 
         int starttick = SDL_GetTicks();
 
-        // Nettoyage de l'écran
+        // Nettoyage de l'Ã©cran
         SDL_SetRenderDrawColor(renderer, 1, 33, 115, 255);
         SDL_RenderClear(renderer);
 
@@ -132,17 +133,17 @@ int main(int argc, char* args[]) {
             lastBallAddedTime = SDL_GetTicks();
         }
 
-        // Dessiner et déplacer chaque balle
+        // Dessiner et dÃ©placer chaque balle
         for (auto it = ballesList.begin(); it != ballesList.end(); ++it) {
             //SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
             it->drawCircle(renderer);
             it->moveCircle(renderer);
         }
 
-        // Afficher à l'écran
+        // Afficher Ã  l'Ã©cran
         SDL_RenderPresent(renderer);
 
-        int delta = SDL_GetTicks() - starttick; // Temps écoulé depuis le début de la frame
+        int delta = SDL_GetTicks() - starttick; // Temps Ã©coulÃ© depuis le dÃ©but de la frame
 
         // Calcul du temps restant pour atteindre 60 FPS
         int remainingTime = desiredDelta - delta;
@@ -159,13 +160,13 @@ int main(int argc, char* args[]) {
         // Affichage des FPS
         if (SDL_GetTicks() - fpsTimer >= 1000) {
             std::cout << "FPS: " << frameCount << std::endl;
-            frameCount = 0;  // Réinitialiser le compteur de frames
-            fpsTimer += 1000; // Réinitialiser le timer
+            frameCount = 0;  // RÃ©initialiser le compteur de frames
+            fpsTimer += 1000; // RÃ©initialiser le timer
         }
 
     }
 
-    // Détruit tout avant de quitter
+    // DÃ©truit tout avant de quitter
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
